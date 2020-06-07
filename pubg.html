@@ -1,0 +1,475 @@
+ <head>
+ <title>PUB-G Documentation</title>
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <style> 
+ @import url('https://fonts.googleapis.com/css?family=Poppins:200i,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Domine&family=Roboto&display=swap');
+
+body{
+    background-color: black;
+}
+::-webkit-scrollbar{
+  width:10px;
+    
+}
+
+
+::-webkit-scrollbar-track{
+  background-color: #000;
+}
+::-webkit-scrollbar-thumb{
+  background-color: #ddd;
+  border-radius: 5px;
+  transition-duration: 0.5s;
+}
+::-webkit-scrollbar-thumb:hover{
+  background-color: #fff;
+  border-radius: 0px;
+}
+#navbar {
+  color:white;
+  font-family:roboto;
+  font-size:18px;
+  background-color: black;
+  position: fixed;
+  min-width: 290px;
+  top: 0px;
+  left: 0px;
+  width: 300px;
+  height: 100%;
+  }
+
+header {
+  font-family:poppins;
+  margin: 10px;
+  text-align: center;
+  font-size: 1.8em;
+  font-weight: thin;
+}
+
+#main-doc header {
+  text-align: left;
+  margin: 0px;
+}
+
+#navbar ul {
+  height: 88%;
+  padding: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+#navbar li {
+  
+  border-top: 1px solid;
+  list-style: none;
+  position: relative;
+  width: 100%;
+}
+
+#navbar a {
+  display: block;
+  padding: 10px 30px;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+}
+#main-doc {
+  font-family:domine;
+  background-image:linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(https://wallpaperaccess.com/full/810309.jpg);
+  background-position: left;
+  background-size: cover;
+  background-attachment: fixed;
+  font-size:20px;
+  padding: 20px;
+  position: absolute;
+  margin-left: 300px;
+  color: white;
+  
+}
+section article {
+  color: #fff;
+  margin: 15px;
+  font-size: 0.96em;
+}
+
+section li {
+  margin: 15px 0px 0px 20px;
+}
+
+code {
+  font-size:13px;
+  color: white;
+  display: block;
+  text-align: left;
+  white-space: pre;
+  position: relative;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 2;
+  background-color: rgba(180, 180, 180, 0.7);
+  padding: 15px;
+  margin: 10px;
+  border-radius: 5px;
+  
+}
+
+@media only screen and (max-width: 815px) {
+  /* For mobile phones: */
+  #navbar ul {
+    border: 1px solid;
+    height: 207px;
+  }
+
+  #navbar {
+    background-color: black;
+    position: absolute;
+    top: 0;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    max-height: 275px;
+    border: none;
+    z-index: 0;
+    border-bottom: 2px solid;
+  }
+
+  #main-doc {
+    position: relative;
+    margin-left: 0px;
+    margin-top: 276px;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  #main-doc {
+    margin-left: -10px;
+  }
+
+  code {
+    margin-left: -20px;
+    width: 100%;
+    padding: 15px;
+    padding-left: 10px;
+    padding-right: 45px;
+    min-width: 233px;
+  }
+}
+ </style>
+ </head>
+ <body>
+ <nav id="navbar">
+  <header><img src="https://hyperpix.net/wp-content/uploads/2019/08/playerunknowns-battlegrounds-logo-font-download.jpg" alt="logo" style="width:200px; height:auto;"></header>
+  <ul>
+    <li><a class="nav-link" href="#Introduction">Introduction</a></li>
+    <li>
+      <a class="nav-link" href="#App_Structure"
+        >App Structure</a
+      >
+    </li>
+    <li>
+      <a class="nav-link" href="#Intended_data_use">Intended data use</a>
+    </li>
+    <li><a class="nav-link" href="#Caching_Overview">Caching Overview</a></li>
+    <li><a class="nav-link" href="#Caching_Implementation">Caching Implementation</a></li>
+    <li>
+      <a class="nav-link" href="#Caching_Software">Caching Software</a>
+    </li>
+    <li><a class="nav-link" href="#Authorization">Authorization</a></li>
+    <li><a class="nav-link" href="#Security_Considerations">Security Considerations</a></li>
+    <li><a class="nav-link" href="#Titles">Titles</a></li>
+    <li><a class="nav-link" href="#Rate_Limits">Rate Limits</a></li>
+    <li>
+      <a class="nav-link" href="#Expected_rate_limit_usage">Expected rate limit usage</a>
+    </li>
+    <li><a class="nav-link" href="#Requesting_a_higher_rate_limit">Requesting a higher rate limit</a></li>
+    <li>
+      <a class="nav-link" href="#SEMVER"
+        >SEMVER</a
+      >
+    </li>
+    <li><a class="nav-link" href="#Deprication_Policy">Deprication Policy</a></li>
+  </ul>
+</nav>
+<main id="main-doc">
+  <section class="main-section" id="Introduction">
+    <header>Introduction</header>
+    <article>
+     <p>
+       The PUBG Game Data Service makes it easier for users to have open access to in-game data, which developers can use to build awesome tools and services.
+
+
+      </p>
+      <p>
+        This service is designed to implement the required features of the JSON-API specification. Data returned from each of the API’s endpoint will be in JSON-API format. You can find additional information about the specification here.</p>
+      <p>
+        We created the API’s endpoint documentation using the OpenAPI specification. This means that users can interact with the endpoint documentation to see how it works in action, generate commands, and get a feel for what the returned data will look like with no technical experience or coding knowledge required! On an endpoint documentation page, click the green “Authorize” button with the lock symbol and enter your API key. With that done, just click “Try it out” on any endpoint and use the “Execute” button to send a request.</p>
+      <p>
+        Data dictionaries and enums can be found on GitHub.
+
+
+      </p>
+      <p>
+        We recommend taking a look at the FAQ for the answers to some common questions. You can also visit the forums or join the official PUBG Developer API Discord server to meet, chat, troubleshoot, and collaborate with other community developers and designers.
+
+
+      </p>
+    </article>
+  </section>
+  <section class="main-section" id="App_Structure">
+    <header>App Structure</header>
+    <article>
+     <p>An application using the API will typically have the following components:
+
+</p>
+      <p>
+        A client-side app<br>
+This is the user facing part of the application. It takes in user input, makes a request to the backend, and displays the results for the user. This could be represented as a standalone website, Discord bot, mobile app, or anything else you can think up.
+
+      </p>
+      <p>
+        A backend server<br>
+This is the core logic of the application. It receives requests from the client-side app, makes appropriate requests to the API, processes the data received, stores it in the database, and returns it to the client-side app.</p>
+     <p> 
+A database structure<br>
+This is where the aggregated data is stored. Depending on what your application does, this could be player records, match history, leaderboard standings, or anything else it needs to hold on to.</p><p>
+A caching layer<br>
+This component sits between the backend server and the API. It speeds up user requests and reduces the number of calls to the API by storing API responses in memory. We will get more into the details of how this works in the Caching Overview and Caching Implementation sections.</p><p>
+The API<br>
+Added for visualization in the stack, this is the PUBG API.
+      </p>
+    </article>
+  </section>
+  <section class="main-section" id="Intended_data_use">
+    <header>Intended data use</header>
+    <article>
+      <p>
+        The data provided by the PUBG API can be used in many ways to create a variety of applications. It is important to understand the intended uses of this data, and how the data and endpoint structure reflect that vision.
+</p><p>
+The primary API endpoints (players and matches) are structured to favor specific searches, and not to provide access to all data. This is why the API flow starts with searching for specific players. In general, applications should try to stick to an opt-in flow, as opposed to trying to search for all players. Here are some examples of how this flow could fit into some of the expected use cases:
+      </p>
+      <ul>
+        <li>
+          Stat sites & bots - A user must enter their player name to see their stats and history, meaning that the application only needs to query the API when that happens
+        </li>
+        <li>Leaderboards & coaching services - Users must register on the site, meaning that the application only has to query for known players
+</li>
+      </ul>
+      <p>
+        This being said, some applications may still need to analyze large amounts of random data. This can be done by requesting sample data, which is a randomized statistical sample that can be used to infer and understand global changes. This data can be acquired from the samples endpoint.
+
+
+      </p>
+    </article>
+  </section>
+  <section class="main-section" id="Caching_Overview">
+    <header>Caching Overview</header>
+    <article>
+     <p> Generally speaking, applications should try to avoid querying for the same data twice whenever possible. This is where caching comes into play. When the backend makes a request to the API, the results should be cached so that they can be reused for a set period of time.</p><p>
+
+For example, lets say that your application takes a player’s IGN as input and displays their stats and match history. The first time the player is looked up by the service, the application will have to query the API to get their data. The caching layer then holds onto those API responses for a set amount of time, lets say 30 minutes. If the player is looked up again within that window, the results will be returned from memory without needing to call the API. After that window has passed the cached data will be removed. The next time that player is looked up the cycle will repeat (query API –> store in cache –> remove after 30 min).</p><p>
+
+There may also be an opportunity for caching results from the backend server depending on how your application works. This can help cut down on requests to your database or other storage structure.</p>
+    </article>
+  </section>
+  <section class="main-section" id="Caching_Implementation">
+    <header>Caching Implementation</header>
+   <p>In this section we will cover how to cache API responses at a high level. Please note that the code examples shown below are in GO, and do not include error handling.
+
+</p><p>
+    To start, let’s take a look at an example function that gets a player object, which we will assume is a structure containing relevant player data for our application needs:
+
+
+    </p><code>
+    func getPlayer(playerName string) playerObject {
+    apiResponse := makePlayerNameRequest(playerName) //query the API for the given player name
+
+    if apiResponse != nil {
+        //we found the player in the API
+        player := processPlayer(apiResponse) //process the API response into a player object
+        return player
+    }
+}
+    </code><p>This function will make a request to the API each time it is called for a specific player. This can be very inefficient considering that player records in the API are not updated frequently (at minimum, the time of a single match plus a little bit for processing time). To improve this, we can surround the existing functionality with a check for the player in the cache. In addition, we also now need to remember to store the player object in the cache when we do get it from the API. It will look something like this:
+
+</p><code>func getPlayer(playerName string) playerObject {
+    player := getPlayerFromCache(playerName) //try to get the player object from the cache
+    if player != nil {
+        return player
+    }
+
+    //we couldn't find the player object in the cache
+    apiResponse:= makePlayerNameRequest(playerName) //query the API for the given player name
+
+    if apiResponse != nil {
+        //we found the player in the API
+        player := processPlayer(apiResponse) //process the API response into a player object
+
+        //store the player in the cache for next time
+        //this function takes in the player object to store, and an integer representing how 
+    long the object should remain in the cache
+        storePlayerInCache(player, 30)
+
+        return player
+    }
+
+    return nil
+}</code>
+  </section>
+  <section class="main-section" id="Caching_Software">
+    <header>Caching Software</header>
+    <article>
+      <p>Here are some examples of caching software:
+
+</p><ul>
+      <li>Memcached - A fairly easy to use caching software with wrappers in many programming languages.
+</li>
+      <li>Redis - A more complex caching software offering more flexibility and features
+</li>
+      </ul>
+    </article>
+  </section>
+  <section class="main-section" id="Authorization">
+    <header>Authorization</header>
+    <article>
+      <p>
+       We require that a JSON Web Token JWT be sent along with requests via the Authorization header. There’s no need to create JWTs manually since they will be created for you when you register for the API - Register at https://developer.pubg.com to receive a free API key with a rate limit of 10 requests per minute. You can find more information about rate limits on the Rate Limits page.
+
+
+      </p>
+
+      <p>
+      JWTs are passed as bearer tokens in the Authorization header, and look like the following:
+
+</p>
+      <code>Authorization: Bearer api-key
+</code>
+      
+    </article>
+  </section>
+  <section class="main-section" id="Security_Considerations">
+    <header>Security Considerations</header>
+    <article>
+      <p>
+      Remember when developing a website/web application that your API key should never be stored client side. Calls to the API should only be made from a secure server side application.
+
+</p>
+    </article>
+  </section>
+  <section class="main-section" id="Titles">
+    <header>Titles</header>
+    <article>
+      <p>
+        The TitleID for a request is determined by the API Key and sent in the Authorization header automatically. Some objects may have a titleID field specifying the game title associated with the data returned.
+
+</p>
+    </article>
+  </section>
+  <section class="main-section" id="Rate_Limits">
+    <header>Rate Limits</header>
+    <article>
+     <p> To ensure the availability and stability of the PUBG API, each API key has a limit on the number of requests it can be used to make per minute. The default rate limit is 10 requests per minute for testing/development purposes. When you have exceeded the number of available requests you will receive an HTTP 429 error code (too many requests), but you should be able to make requests again within a minute.</p><p>
+
+The rate limit headers are defined as follows:</p><p>
+
+X-RateLimit-Limit - Request limit per day / per minute</p><p>
+
+X-RateLimit-Remaining - The number of requests left for the time window
+</p><p>
+X-RateLimit-Reset - The time that the rate limit will be reset, as a UNIX timestamp</p></article>
+  </section>
+  <section class="main-section" id="Expected_rate_limit_usage">
+    <header>Expected rate limit usage</header>
+    <article>
+     <p>
+       Since the /matches and telemetry endpoints are not rate limited, the amount of rate limited requests a typical application needs to make to the API should be directly proportional to the number of users/players using it. For example, each time a player is looked up, the application needs to make two requests (if the information is not already cached):
+
+
+      </p>
+      <ul>
+        <li>
+          one to “/players?filter[playerNames]={playerName}” or “/players/{accountId} if the accountId is already known”
+
+        </li><li>
+        one to “/players/{accountId}/seasons/{seasonId}” if season stats are required for the use case
+
+        </li>
+      </ul>Any following requests to the /matches or telemetry endpoints will not count against the application’s API key rate limit.
+
+
+    </article>
+  </section>
+  <section class="main-section" id="Requesting_a_higher_rate_limit">
+    <header>Requesting a higher rate limit</header>
+    <article>
+      <p>
+      If you find that the default (10RPM) rate limit is not sufficient for your application, you can request a higher limit by selecting “I NEED A HIGHER LIMIT” in “MY APPS”. Please keep in mind that we require some form of working sample and an explanation of the need for a higher limit in order to approve rate limit increase requests.
+</p><code>
+      {
+  "type": "season",
+  "id": "$seasonId",
+  "attributes": {
+    "isCurrentSeason": true,
+    "isOffseason": false
+  }
+}
+      </code><p>
+Please make sure that you fill out the form completely with as much detail as possible, and we will work with you to provide a more appropriate limit.
+</p><p>
+In order to determine an appropriate rate limit for your application, we need to know how many API requests your application makes, when it makes them, and analytics showing the number of users if you have active users. We will also want to know about the caching and optimization strategies you are using in order to help reduce the number of API requests that your application requires. Please take a look at our Caching Overview and Caching Implementation sections for additional information.
+</p>
+    <code>
+      "matches": {
+  "data": [
+    {
+      "type": "match",
+      "id": "matchId"
+    }
+  ]
+}
+      </code>  <p>
+If the project you are working on has a barrier to entry, please provide all the necessary information on how to access your site.
+</p><p>
+If your rate limit request is approved, you will receive a notice that the rate limit has been increased for your application.  
+      </p>
+      
+    </article>
+  </section>
+  <section class="main-section" id="SEMVER">
+    <header>SEMVER</header>
+    <article>
+    <p>
+      We follow SEMVER standards, using a MAJOR.MINOR.PATCH versioning scheme. This means that we will increment versioning in the following way:
+
+
+      </p>
+      <ul>
+        <li>
+          MAJOR version when we make incompatible API changes
+
+        </li><li>
+        MINOR version when we add functionality in a backwards-compatible manner
+
+        </li>
+        <li>
+          PATCH version when we make backwards-compatible bug fixes
+
+        </li>
+      </ul>
+      <p>
+        There are two seperate version numbers that users should be aware of. One for the API service, and one for the data returned by the API. Versioning is seperated in this way because changes to the service may be rolled out that do not affect the PUBG API data. The version of the API service is available in the data returned by the /status endpoint. The data version can be found in the changelog.
+
+
+      </p>
+    </article>
+  </section>
+  <section class="main-section" id="Deprication_Policy">
+    <header>Deprication Policy</header>
+    <article>
+      Deprecated fields and data will be announced at least one week in advance in the “Upcoming Changes” section at the top of the changelog. Once deprecated, the field/data will typically be hardcoded to zero for 14 days until the data retention period has turned over before being removed entirely.
+
+
+    </article>
+  </section>
+</main>
+</body>
