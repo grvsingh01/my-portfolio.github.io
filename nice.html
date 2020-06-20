@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="external.js"></script>
+<script type="text/javascript" src="external.js"></script>
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+const tl = gsap.timeline();
+  tl.to(".overlay", {
+      duration: 3, 
+      scale: 90,
+      autoAlpha: 0,
+      ease: "power1.inOut"
+    })
+    .fromTo(".purple", {
+      autoAlpha: 0
+    }, {
+      duration: 1,
+      autoAlpha: 1,
+      ease: "power1.inOut"
+    }, "-=2");
+
+ScrollTrigger.create({
+  animation: tl,
+  trigger: "#container",
+  start: "top top",
+  end: "+=1500", 
+  scrub: 1,
+  pin: true,
+});
+
+/* Copyright (c) 2020 by Craig Roblewsky (https://codepen.io/PointC/pen/KRWgOK) for code used below */
+//const svg = document.querySelector("#overlay");
+const ratio = 0.5625;
+
+function newSize() {
+  let w = window.innerWidth ;
+  let h = window.innerHeight;
+  if (w > h * (16/9) ) {
+    gsap.set("#pin-overlay", { attr: { width: w, height: w * ratio } });
+  } else {
+    gsap.set("#pin-overlay", { attr: { width: h / ratio, height: h } });
+  }
+  //let data = svg.getBoundingClientRect();
+  //gsap.set("#overlay", {x:w/2 - data.width/2});
+  //gsap.set("#overlay", {y:h/2 - data.height/2});
+}
+
+newSize();
+window.addEventListener("resize", newSize);
+</script>
+<style>
+html, body {
+  margin: 0;
+	height: 100%;
+  -webkit-overflow-scrolling: touch;
+  overflow-scrolling: touch;
+  font-family: "Signika Negative", sans-serif, Arial;
+}
+
+.panel {
+	width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  font-size: 1.5em;
+  text-align: center;
+  color: white;
+  position: relative;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+h1, h2, p, li {
+  max-width: 70%;
+}
+
+.panel {
+  position: absolute;
+}
+
+#container {
+  width: 100%;
+  height: 100%; 
+  position: relative;
+  overflow: hidden;
+}
+
+.panel.description {
+  position: relative;
+}
+
+.panel.align-top {
+  align-items: flex-start;
+}
+
+.panel h1 {
+  font-size: 3em;
+  color: white;
+  font-weight: 300;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.blue {
+  background-color: #2c7ad2;
+  background-image: radial-gradient(circle at 47% 14%, rgba(205, 205, 205,0.04) 0%, rgba(205, 205, 205,0.04) 43%,transparent 43%, transparent 100%),radial-gradient(circle at 35% 12%, rgba(215, 215, 215,0.04) 0%, rgba(215, 215, 215,0.04) 4%,transparent 4%, transparent 100%),radial-gradient(circle at 1% 35%, rgba(24, 24, 24,0.04) 0%, rgba(24, 24, 24,0.04) 37%,transparent 37%, transparent 100%),radial-gradient(circle at 21% 1%, rgba(0, 0, 0,0.04) 0%, rgba(0, 0, 0,0.04) 26%,transparent 26%, transparent 100%),radial-gradient(circle at 23% 82%, rgba(249, 249, 249,0.04) 0%, rgba(249, 249, 249,0.04) 60%,transparent 60%, transparent 100%),radial-gradient(circle at 11% 54%, rgba(251, 251, 251,0.04) 0%, rgba(251, 251, 251,0.04) 23%,transparent 23%, transparent 100%),radial-gradient(circle at 69% 68%, rgba(234, 234, 234,0.04) 0%, rgba(234, 234, 234,0.04) 10%,transparent 10%, transparent 100%),linear-gradient(90deg, #2c7ad2,#1568c6);
+}
+
+.bg {
+  background: url("https://i.imgur.com/3OICvSf.jpg") center center;
+  background-size: cover;
+}
+
+.red {
+  background-color: #c82736;
+  background-image: radial-gradient(circle at 19% 90%, rgba(190, 190, 190,0.04) 0%, rgba(190, 190, 190,0.04) 17%,transparent 17%, transparent 100%),radial-gradient(circle at 73% 2%, rgba(78, 78, 78,0.04) 0%, rgba(78, 78, 78,0.04) 94%,transparent 94%, transparent 100%),radial-gradient(circle at 45% 2%, rgba(18, 18, 18,0.04) 0%, rgba(18, 18, 18,0.04) 55%,transparent 55%, transparent 100%),radial-gradient(circle at 76% 60%, rgba(110, 110, 110,0.04) 0%, rgba(110, 110, 110,0.04) 34%,transparent 34%, transparent 100%),radial-gradient(circle at 68% 56%, rgba(246, 246, 246,0.04) 0%, rgba(246, 246, 246,0.04) 16%,transparent 16%, transparent 100%),radial-gradient(circle at 71% 42%, rgba(156, 156, 156,0.04) 0%, rgba(156, 156, 156,0.04) 47%,transparent 47%, transparent 100%),radial-gradient(circle at 46% 82%, rgba(247, 247, 247,0.04) 0%, rgba(247, 247, 247,0.04) 39%,transparent 39%, transparent 100%),radial-gradient(circle at 50% 47%, rgba(209, 209, 209,0.04) 0%, rgba(209, 209, 209,0.04) 45%,transparent 45%, transparent 100%),linear-gradient(90deg, #e53949,#cc2232);
+  z-index: 3;
+}
+
+.purple {
+  background-color: transparent;
+}
+
+.brooks {
+  position: relative;
+  font-family: 'Sanchez', serif;
+  font-size: 3rem;
+  line-height: 1.2;
+  font-style: italic;
+}
+.brooks:before {
+  content: '\201C';
+  position: absolute;
+  top: -5rem;
+  left: 0;
+  color: rgba(231, 230, 228, 0.5);
+  font-size: 12rem;
+  z-index: -1;
+}
+.block-wrap {
+  width: 70%;
+  margin: 4rem auto;
+}
+footer:before {
+  content: '\2015';
+}
+blockquote {
+  margin: 4em;
+}
+.green {
+  background-color: #28a92b;
+  background-image: radial-gradient(circle at 46% 40%, rgba(228, 228, 228,0.06) 0%, rgba(228, 228, 228,0.06) 13%,transparent 13%, transparent 100%),radial-gradient(circle at 11% 41%, rgba(198, 198, 198,0.06) 0%, rgba(198, 198, 198,0.06) 19%,transparent 19%, transparent 100%),radial-gradient(circle at 52% 23%, rgba(14, 14, 14,0.06) 0%, rgba(14, 14, 14,0.06) 69%,transparent 69%, transparent 100%),radial-gradient(circle at 13% 85%, rgba(148, 148, 148,0.06) 0%, rgba(148, 148, 148,0.06) 44%,transparent 44%, transparent 100%),radial-gradient(circle at 57% 74%, rgba(232, 232, 232,0.06) 0%, rgba(232, 232, 232,0.06) 21%,transparent 21%, transparent 100%),radial-gradient(circle at 59% 54%, rgba(39, 39, 39,0.06) 0%, rgba(39, 39, 39,0.06) 49%,transparent 49%, transparent 100%),radial-gradient(circle at 98% 38%, rgba(157, 157, 157,0.06) 0%, rgba(157, 157, 157,0.06) 24%,transparent 24%, transparent 100%),radial-gradient(circle at 8% 6%, rgba(60, 60, 60,0.06) 0%, rgba(60, 60, 60,0.06) 12%,transparent 12%, transparent 100%),linear-gradient(90deg, #28a92b, #10a614);
+}
+.black {
+  background-color: #000;
+}
+
+.r {
+  position: relative;
+}
+</style>
+
+</head>
+<body>
+  <div class="description panel blue r">
+      <h1>SCROLL DOWN</h1>
+  </div>
+
+<div id="container" class="bg">
+  <section class="panel overlay">
+    <svg version="1.1" id="pin-overlay" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0"
+       width="1600px" height="900px" viewBox="0 0 1600 900" xml:space="preserve">
+      <g>
+          <path fill="#FEFEFE" d="M810.707,436H790v10h20.707c2.236,0,4.988,0.213,4.988-5S812.943,436,810.707,436z"/>
+          <path fill="#FEFEFE" d="M457.681,434.5c0-4.127-2.752-4.5-4.988-4.5H432v9h20.693C454.929,439,457.681,438.627,457.681,434.5z"/>
+          <path fill="#FEFEFE" d="M456.993,459H432v8h24.993c2.236,0,4.988,0.018,4.988-4S459.229,459,456.993,459z"/>
+          <path fill="#FEFEFE" d="M534.909,434.5c0-4.127-2.752-4.5-4.988-4.5H509v9h20.921C532.157,439,534.909,438.627,534.909,434.5z"/>
+          <path fill="#FEFEFE" d="M534.221,459H509v8h25.221c2.236,0,4.988,0.018,4.988-4S536.457,459,534.221,459z"/>
+          <path fill="#FEFEFE" d="M0,0v900h1600V0H0z M329.714,488h-26.488l-8.342-18H282v18h-23v-76h47.667
+            c13.674,0,23.048,12.158,23.048,29.099c0,11.077-4.042,20.193-10.664,25.08L329.714,488z M369.274,489.095
+            c-26.487,0-37.839-12.706-37.839-39.204c0-26.389,11.352-38.986,37.839-38.986c26.402,0,37.839,12.706,37.839,38.986
+            C407.113,476.28,395.676,489.095,369.274,489.095z M464.733,488H410v-76h52.153c13.674,0,17.888,7.814,17.888,19.326
+            c0,4.887-1.806,9.88-4.73,14.224c5.246,4.778,9.03,11.724,9.03,19.977C484.341,478.015,478.407,488,464.733,488z M541.961,488H487
+            v-76h52.381c13.674,0,17.888,7.814,17.888,19.326c0,4.887-1.806,9.88-4.73,14.224c5.246,4.778,9.03,11.724,9.03,19.977
+            C561.568,478.015,555.634,488,541.961,488z M587,488h-23v-76h23V488z M654,434h-42v7h42v18h-42v7h42v22h-64v-76h64V434z
+             M727.546,465.086c9.46,0,13.846-3.086,14.706-11.086h22.875c-0.946,24-13.416,34.977-37.582,34.977
+            c-26.487,0-37.839-12.646-37.839-39.145c0-26.389,11.352-38.73,37.839-38.73c24.08,0,36.636,10.898,37.582,34.898h-22.875
+            c-0.86-8-5.246-10.978-14.706-10.978c-13.244,0-15.479,6.887-15.479,14.923C712.066,458.091,714.388,465.086,727.546,465.086z
+             M838.055,488h-26.487l-8.342-18H790v18h-22v-76h47.007c13.674,0,23.048,12.158,23.048,29.099c0,11.077-4.042,20.193-10.664,25.08
+            L838.055,488z M904,434h-41v7h41v18h-41v7h41v22h-63v-76h63V434z M984,488h-28.815L929,443.158V488h-22v-76h29.093L962,456.842V412
+            h22V488z M1025.447,489.002c-24.682,0-38.441-5.002-38.441-28.002h22.359c0,4,2.752,6.282,16.941,6.282
+            c13.244,0,15.222-1.04,15.222-3.862c0-3.258-1.978-3.67-16.081-4.213c-27.176-1.086-37.582-6.721-37.582-24.422
+            c0-16.724,12.986-23.641,36.722-23.641c23.478,0,36.722,6.856,36.722,26.856h-22.36c0-5-5.159-5.131-16.081-5.131
+            c-10.492,0-12.642,0.529-12.642,3.461s2.149,2.763,15.222,3.414c23.735,1.195,38.44,3.181,38.44,23.055
+            C1063.888,483.758,1050.128,489.002,1025.447,489.002z M1146,488h-22v-26h-35v26h-23v-76h23v26h35v-26h22V488z M1206.646,488
+            l-4.128-14h-25.627l-4.129,14h-24.595l24.939-76h33.195l24.939,76H1206.646z M1320.854,488h-33.196l-9.89-43.765l-9.89,43.765
+            h-33.195l-19.779-76h23.993l12.47,53.646L1264.438,412h26.659l13.071,53.646L1316.64,412h23.993L1320.854,488z"/>
+          <polygon fill="#FEFEFE" points="1182.739,455 1196.671,455 1189.705,431.76 	"/>
+          <path fill="#FEFEFE" d="M302.367,436H282v10h20.367c2.236,0,4.988,0.213,4.988-5S304.603,436,302.367,436z"/>
+          <path fill="#FEFEFE" d="M369.274,434.796c-13.244,0-15.479,7.059-15.479,15.095c0,8.145,2.322,15.312,15.479,15.312
+        s15.48-7.275,15.48-15.312C384.754,441.964,382.518,434.796,369.274,434.796z"/>
+      </g>
+    </svg>
+  </section>
+  
+  <section class="panel purple">
+    <div class="block-wrap">
+    <blockquote class="brooks">Design is not just what it looks like and feels like. Design is how it works.
+      <footer>Steve Jobs</footer>
+    </blockquote>
+    </div>
+  </section>
+</div>
+
+<section class="black panel r">
+  <h1>THE END!</h1>
+</section>
+
+</body>
+</html>
