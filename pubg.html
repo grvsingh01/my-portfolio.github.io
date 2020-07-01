@@ -292,41 +292,9 @@ There may also be an opportunity for caching results from the backend server dep
     To start, let’s take a look at an example function that gets a player object, which we will assume is a structure containing relevant player data for our application needs:
 
 
-    </p><code>
-    func getPlayer(playerName string) playerObject {
-    apiResponse := makePlayerNameRequest(playerName) //query the API for the given player name
+    </p><p>This function will make a request to the API each time it is called for a specific player. This can be very inefficient considering that player records in the API are not updated frequently (at minimum, the time of a single match plus a little bit for processing time). To improve this, we can surround the existing functionality with a check for the player in the cache. In addition, we also now need to remember to store the player object in the cache when we do get it from the API. It will look something like this:
 
-    if apiResponse != nil {
-        //we found the player in the API
-        player := processPlayer(apiResponse) //process the API response into a player object
-        return player
-    }
-}
-    </code><p>This function will make a request to the API each time it is called for a specific player. This can be very inefficient considering that player records in the API are not updated frequently (at minimum, the time of a single match plus a little bit for processing time). To improve this, we can surround the existing functionality with a check for the player in the cache. In addition, we also now need to remember to store the player object in the cache when we do get it from the API. It will look something like this:
-
-</p><code>func getPlayer(playerName string) playerObject {
-    player := getPlayerFromCache(playerName) //try to get the player object from the cache
-    if player != nil {
-        return player
-    }
-
-    //we couldn't find the player object in the cache
-    apiResponse:= makePlayerNameRequest(playerName) //query the API for the given player name
-
-    if apiResponse != nil {
-        //we found the player in the API
-        player := processPlayer(apiResponse) //process the API response into a player object
-
-        //store the player in the cache for next time
-        //this function takes in the player object to store, and an integer representing how 
-    long the object should remain in the cache
-        storePlayerInCache(player, 30)
-
-        return player
-    }
-
-    return nil
-}</code>
+</p>
   </section>
   <section class="main-section" id="Caching_Software">
     <header>Caching Software</header>
