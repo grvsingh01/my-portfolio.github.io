@@ -1,0 +1,351 @@
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://kit.fontawesome.com/e751ede3d4.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.0/jquery-ui.min.js"></script>
+</head>
+
+<script>
+const projectName = 'random-quote-machine';
+let quotesData;
+
+
+const animeQuotes = [
+  {
+      quote: "The world isn’t perfect. But it’s there for us, doing the best it can… that’s what makes it so damn beautiful.",
+      author: "Roy Mustang",
+      anime: "Full Metal Alchemist",
+      image: 'https://cutewallpaper.org/21/roy-mustang-wallpaper/Roy-Mustang-Wallpaper-by-Pennymester-on-DeviantArt.jpg'
+  },
+  {
+    quote: "To know sorrow is not terrifying. What is terrifying is to know you can’t go back to happiness you could have.",
+    author: "Matsumoto Rangiku",
+    anime: "Bleach",
+    image: 'https://external-preview.redd.it/fofOa-h_ns4elEeAa0FyLhaayMjh1dIcofZYKFK2008.jpg?auto=webp&s=829b0559f1389cd400540470019f3abf054ce7a4'
+},
+{
+    quote: "Those who stand at the top determine what’s wrong and what’s right! This very place is neutral ground! Justice will prevail, you say? But, of course, it will! Whoever wins this war becomes justice!",
+    author: "Don Quixote Doflamingo",
+    anime: "One Piece",
+    image: 'https://wallpaperaccess.com/full/17350.jpg'
+},
+{
+    quote: "Fear is not evil. It tells you what weakness is. And once you know your weakness, you can become stronger as well as kinder.",
+    author: "Gildarts Clive",
+    anime: "Fairy Tail",
+    image: 'https://wallpaperaccess.com/full/31260.png'
+},
+{
+    quote: "People, who can’t throw something important away, can never hope to change anything.",
+    author: "Armin Arlert",
+    anime: "Attack on Titan",
+    image: 'https://wallpaper.dog/large/17122901.jpg'
+},
+{
+    quote: "You will never be able to love anybody else until you love yourself.",
+    author: "Lelouch Lamperouge",
+    anime: "Code Geass",
+    image: 'https://wallpaperaccess.com/full/6783749.png'
+},
+{
+    quote: "Destiny. Fate. Dreams. These unstoppable ideas are held deep in the heart of man. As long as there are people who seek freedom in this life, these things shall not vanish from the Earth.",
+    author: "Gold D. Rodger",
+    anime: "One Piece",
+    image: 'https://wallpaperaccess.com/full/17350.jpg'
+},
+{
+    quote: "If it’s possible for one person to be hurt by another, then it’s possible for that person to be healed by another.",
+    author: "Sohma Hatori",
+    anime: "Fruits Basket",
+    image: 'https://www.enjpg.com/img/2020/Fruits-Basket-HD.png'
+},
+{
+    quote: "People Exist To Save Themselves. You Will Understand That At The Moment Of Your Death.",
+    author: "Sakunosuke",
+    anime: "Bungo Stray Dogs",
+    image: 'https://sm.ign.com/ign_il/screenshot/default/18251598-290441374746144-292451865147211776-n_r262.jpg'
+},
+{
+    quote: "Fools who don’t respect the past are likely to repeat it.",
+    author: "Nico Robin",
+    anime: "One Piece",
+    image: 'https://wallpaperaccess.com/full/17350.jpg'
+},
+{
+    quote: "Life is not a game of luck. If you wanna win, work hard.",
+    author: "Sora",
+    anime: "No Game No Life",
+    image: 'https://images6.alphacoders.com/512/thumb-1920-512323.jpg'
+},
+{
+    quote: "A person grows up when he’s able to overcome hardships. Protection is important, but there are some things that a person must learn on his own.",
+    author: "Jiraiya",
+    anime: "Naruto: Shippuden",
+    image: 'https://www.myfreewalls.com/public/uploads/preview/hd-naruto-uzumaki-4k-wallpaper-11623715726vm9hfkgmqs.jpg'
+},
+{
+    quote: "Who decides limits? And based on what? You said you worked hard? Well, maybe you need to work a little harder. Is that really the limit of your strength? Could you of tomorrow beat you today? Instead of giving in, move forward.",
+    author: "Saitama",
+    anime: "One Punch Man",
+    image: 'https://wallpaperaccess.com/full/312635.jpg'
+},
+{
+    quote: "You need to accept the fact that you’re not the best and have all the will to strive to be better than anyone you face.",
+    author: "Roronoa Zoro",
+    anime: "One Piece",
+    image: 'https://wallpaperaccess.com/full/668125.jpg'
+},
+{
+    quote: "Religion, ideology, resources, land, spite, love or just because… No matter how pathetic the reason, it’s enough to start war. War will never cease to exist… reasons can be thought up after the fact… Human nature pursues strife.",
+    author: "Pain",
+    anime: "Naruto: Shippuden",
+    image: 'http://cdn.wallpaperhi.com/1280x800/20120310/pain%20naruto%20shippuden%20akatsuki%201280x800%20wallpaper_www.wallpaperhi.com_50.jpg'
+},
+{
+    quote: "People’s lives don’t end when they die, it ends when they lose faith.",
+    author: "Itachi Uchiha",
+    anime: "Naruto: Shippuden",
+    image: 'https://wallpapers.com/images/hd/itachi-wallpaper-hd-zh2po8ky6t9za6qa-zh2po8ky6t9za6qa.jpg'
+},
+{
+    quote: "If you don’t like your destiny, don’t accept it.",
+    author: "Naruto Uzumaki",
+    anime: "Naruto",
+    image: 'https://www.myfreewalls.com/public/uploads/preview/hd-naruto-uzumaki-4k-wallpaper-11623715726vm9hfkgmqs.jpg'
+},
+{
+    quote: "Why should I apologize for being a monster? Has anyone ever apologized for turning me into one?",
+    author: "Juuzou Suzuya",
+    anime: "Tokyo Ghoul",
+    image: 'https://www.enjpg.com/img/2020/tokyo-ghoul-34.jpg'
+},
+{
+    quote: "I’ll leave tomorrow’s problems to tomorrow’s me.",
+    author: "Saitama",
+    anime: "One-Punch Man",
+    image: 'https://wallpaperaccess.com/full/312635.jpg'
+},
+{
+    quote: "Being alone is better than being with the wrong person.",
+    author: "L Lawliet",
+    anime: "Death Note",
+    image: 'https://wallpaperaccess.com/full/549285.jpg'
+},
+{
+    quote: "Laws aren’t perfect, because humans who created laws aren’t perfect. It’s impossible to be perfect. However, the laws are evidence of the human’s struggle to be righteous.",
+    author: "Soichiro Yagami",
+    anime: "Death Note",
+    image: 'https://wallpaperaccess.com/full/549285.jpg'
+},
+{
+    quote: "The real evil is the power to kill people. Someone who finds himself with that power is cursed. No matter how you use it, anything obtained by killing people can never bring true happiness.",
+    author: "Soichiro Yagami",
+    anime: "Death Note",
+    image: 'https://wallpaperaccess.com/full/549285.jpg'
+},
+{
+    quote: "I can't develop feelings. That's how most idiots screw up.",
+    author: "Light Yagami",
+    anime: "Death Note",
+    image: 'https://wallpaperaccess.com/full/549285.jpg'
+},
+{
+    quote: "If Kira gets caught, he is evil. If Kira rules the world, he is justice.",
+    author: "Light Yagami",
+    anime: "Death Note",
+    image: 'https://wallpaperaccess.com/full/549285.jpg'
+},
+{
+    quote: "Wake up to reality! Nothing ever goes as planned in this accursed world. The longer you live, the more you realize that the only things that truly exist in this reality are merely pain, suffering and futility.",
+    author: "Madara Uchiha",
+    anime: "Naruto: Shippuden",
+    image: 'https://wallpaper.dog/large/5509383.jpg'
+},
+{
+    quote: "Everywhere you look in this world, wherever there is light, there will always be shadows to be found as well. As long as there is a concept of victors, the vanquished will also exist.",
+    author: "Madara Uchiha",
+    anime: "Naruto: Shippuden",
+    image: 'https://wallpaper.dog/large/5509383.jpg'
+},
+{
+    quote: "The selfish intent of wanting to preserve peace initiates war, and hatred is born in order to protect love.",
+    author: "Madara Uchiha",
+    anime: "Naruto: Shippuden",
+    image: 'https://wallpaper.dog/large/5509383.jpg'
+},
+{
+    quote: "Love is the most twisted form of curse",
+    author: "Gojo Satoru",
+    anime: "Jujutsu Kaisen 0",
+    image: 'https://wallpapermoon.com/wp-content/uploads/2021/07/00870045.jpg'
+},
+
+]
+
+var currentQuote='',
+    currentAuthor='',
+    currentAnime='',
+    currentImage='',
+    imageGradient='rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)';
+
+function randomIndex(){
+  
+  return Math.floor(Math.random() * (animeQuotes.length - 0 + 1)) + 0 ;;
+}
+
+function getQuote(){
+  var i = randomIndex();
+  currentQuote= animeQuotes[i].quote ;
+  currentAuthor= animeQuotes[i].author;
+  currentAnime= animeQuotes[i].anime;
+  currentImage= animeQuotes[i].image;
+  
+  $('#tweet-quote').attr(
+    'href',
+    'https://twitter.com/intent/tweet?hashtags=quotes&related=freecodecamp&text=' +
+      encodeURIComponent('"' + currentQuote + '" \n-' + currentAuthor + ' (' + currentAnime + ')')
+  );
+  
+  $('#quote-text').animate({ opacity: 0 }, 500, function () {
+    $(this).animate({ opacity: 1 }, 500);
+    $('#text').text(currentQuote);
+  });
+  
+  $('#quote-author').animate({ opacity: 0 }, 500, function () {
+    $(this).animate({ opacity: 1 }, 500);
+    $('#author').html(currentAuthor);
+  });
+  
+  $('#quote-anime').animate({ opacity: 0 }, 500, function () {
+    $(this).animate({ opacity: 1 }, 500);
+    $('#anime').html(currentAnime);
+  });
+  
+  
+  
+  $('body').css({'background-image': 'url(' + currentImage + ')'});
+  
+   
+}
+
+$(document).ready(function () {
+  
+  getQuote();
+
+  $('#new-quote').on('click', getQuote);
+});
+</script>
+
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Poppins:200i,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Domine&family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,500');
+
+body {
+  max-width:100%;
+  padding: 0;
+  margin: 0px;
+  background-color: #444;
+  background-attachment:fixed;
+  background-position:center;
+  background-size:cover;
+  color: white; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height:100vh;
+  transition-duration: 1.5s;
+ }
+
+h1{
+  font-size: 2rem;
+}
+
+#wrapper {
+  background-color:  rgba(0,0,0, .6);
+  width: 55%;
+  position: relative;
+  border-radius: 3.5em;
+  backdrop-filter: saturate(150%) blur(4px);
+  }
+
+#quote-box {
+  padding: 50px 50px ;
+  font-family: Raleway;
+}
+
+#quote-text {
+  text-align: center;
+  font-family: Poppins;
+}
+
+#quote-author {
+  text-align: right;
+  font-size: 1rem;
+}
+
+#quote-anime {
+  text-align: right;
+  font-size: 1.4rem;
+}
+
+#tweet-quote{
+  background-color:#111;
+  color: #fff;
+  float:left;
+  margin-bottom:6%;
+  padding: 10px 20px;
+  font-size:30px;
+  border: none;
+  border-radius: 15px;
+  transition-duration: .25s;
+}
+
+#new-quote{
+  background-color:#111;
+  color: #fff;
+  float:right;
+  padding: 10px 30px;
+  margin-bottom:6%;
+  font-size:30px;
+  border: none;
+  border-radius: 15px;
+  transition-duration: .25s;
+}
+
+#new-quote:hover{
+  background-color:#fff;
+  color: #111;
+  box-shadow: 0 12px 16px 0 rgb(0, 0, 0);
+  cursor: pointer;
+}
+
+#tweet-quote:hover{
+  background-color:#fff;
+  color: #111;
+  box-shadow: 0 12px 16px 0 rgb(0, 0, 0);
+  cursor: pointer;
+}
+</style>
+<body>
+    <body>
+        <div id='wrapper'>
+        <div id='quote-box'>
+         <div id='quote-text'>
+           <h1><i class="fa fa-quote-left"></i> <span id='text'></span></h1>
+         </div>
+         <div id='quote-author'>
+           <h2>- <span id='author'></span></h2>
+         </div>
+         <div id='quote-anime'>
+           <h2><span id='anime'></span></h2>
+         </div> 
+          <a id='tweet-quote' title="Tweet this quote!" target="_top"><i class="fab fa-twitter"></i> </a>
+          <a id='new-quote' title="New Quote"><i class="far fa-arrow-alt-circle-right"></i></a>
+        </div>
+      </div>
+        </body>
+</body>
+</html>
